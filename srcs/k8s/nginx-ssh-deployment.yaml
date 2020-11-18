@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-ssh-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx-ssh-app
+  template:
+    metadata:
+      name: nginx-ssh-pod
+      labels:
+        app: nginx-ssh-app
+    spec:
+      containers:
+      - name: nginx-ssh-container
+        image: amalliar/nginx-ssh:latest
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 22
+        - containerPort: 80
+        - containerPort: 443
