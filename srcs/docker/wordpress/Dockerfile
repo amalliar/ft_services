@@ -6,20 +6,22 @@
 #    By: amalliar <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/02 00:17:37 by amalliar          #+#    #+#              #
-#    Updated: 2020/11/24 18:14:03 by amalliar         ###   ########.fr        #
+#    Updated: 2020/11/25 17:29:00 by amalliar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 FROM alpine:3.12
 LABEL maintainer="amalliar@student.21-school.ru"
-EXPOSE 5000
-ENTRYPOINT ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
+EXPOSE 5050
+ENTRYPOINT ["docker-entrypoint.sh"]
 
 RUN apk add --no-cache \
+    bash \
     fcgi \
     nginx \
     openssl \
     php7-cgi \
+    php7-cli \
     php7-common \
     php7-ctype \
     php7-curl \
@@ -36,6 +38,7 @@ RUN apk add --no-cache \
     php7-mysqli \
     php7-pdo \
     php7-pdo_mysql \
+    php7-phar \
     php7-posix \
     php7-session \
     php7-soap \
@@ -46,8 +49,19 @@ RUN apk add --no-cache \
     axel
 
 RUN adduser -D -g 'www' www && \
-    mkdir /var/run/nginx /var/run/php && \
+    mkdir /var/run/nginx && \
     chown -R www:www /var/lib/nginx
+
+# Install WordPress.
+WORKDIR /usr/share/webapps
+RUN axel https://wordpress.org/latest.tar.gz -o latest.tar.gz && \
+    tar -xvf latest.tar.gz && \
+    rm latest.tar.gz && \
+    chown -R www:www /usr/share/webapps
+
+WORKDIR /usr/local/bin
+RUN axel https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar -o wp && \
+    chmod +x wp
 
 # Generate ssl key and certificate.
 WORKDIR /etc/nginx/ssl
@@ -55,14 +69,5 @@ RUN openssl req -new -x509 -nodes -newkey rsa:4096 -keyout server.key -out serve
     -subj "/C=RU/L=Moscow/O=Self-signed/CN=localhost" && \
     chmod 400 server.key && \
     chmod 444 server.crt
-
-# Install phpmyadmin.
-WORKDIR /usr/share/webapps
-RUN axel http://files.directadmin.com/services/all/phpMyAdmin/phpMyAdmin-5.0.4-all-languages.tar.gz -o phpMyAdmin-5.0.4-all-languages.tar.gz && \
-    tar zxvf phpMyAdmin-5.0.4-all-languages.tar.gz && \
-    rm phpMyAdmin-5.0.4-all-languages.tar.gz && \
-    mv phpMyAdmin-5.0.4-all-languages phpmyadmin && \
-    chmod -R 777 /usr/share/webapps && \
-    chown -R www:www /usr/share/webapps
 
 COPY rootfs /

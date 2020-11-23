@@ -1,11 +1,26 @@
 #!/usr/bin/sh
 
-# We want to use the docker server inside of a minikube VM / docker container.
-eval $(minikube docker-env)
+LGREEN="\033[1;32m"
+NOC="\033[0m"
 
-echo "==> Building Docker images..."
-docker build -t amalliar/nginx-ssh:latest ./srcs/docker/nginx-ssh && \
-echo "==> Done." && \
-echo "==> Applying manifests..." && \
-kubectl apply -f ./srcs/k8s && \
-echo "==> Done."
+minikube status | grep Running > /dev/null
+if [[ $? != 0 ]]
+then
+    echo -e "$LGREEN==>$NOC Starting minikube..."
+    minikube start --addons=default-storageclass --addons=metallb \
+        --addons=storage-provisioner
+fi
+
+# We want to use the docker server inside of a
+# minikube VM / docker container.
+eval $(minikube -p minikube docker-env)
+echo -e "$LGREEN==>$NOC Building Docker images..."
+docker build -t amalliar/nginx-ssh:latest ./srcs/docker/nginx-ssh
+docker build -t amalliar/mysql:latest ./srcs/docker/mysql
+docker build -t amalliar/phpmyadmin:latest ./srcs/docker/phpmyadmin
+docker build -t amalliar/wordpress:latest ./srcs/docker/wordpress
+docker build -t amalliar/ftps:latest ./srcs/docker/ftps
+docker build -t amalliar/influxdb:latest ./srcs/docker/influxdb
+docker build -t amalliar/grafana:latest ./srcs/docker/grafana
+echo -e "$LGREEN==>$NOC Applying manifests..."
+kubectl apply -f ./srcs/k8s

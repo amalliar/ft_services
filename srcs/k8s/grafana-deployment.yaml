@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: grafana-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: grafana-app
+  template:
+    metadata:
+      name: grafana-pod
+      labels:
+        app: grafana-app
+    spec:
+      containers:
+      - name: grafana-container
+        image: amalliar/grafana:latest
+        imagePullPolicy: Never

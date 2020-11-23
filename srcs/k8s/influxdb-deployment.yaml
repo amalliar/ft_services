@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: influxdb-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: influxdb-app
+  template:
+    metadata:
+      name: influxdb-pod
+      labels:
+        app: influxdb-app
+    spec:
+      volumes:
+        - name: influxdb-storage
+          persistentVolumeClaim:
+            claimName: database-persistent-volume-claim
+      containers:
+      - name: influxdb-container
+        image: amalliar/influxdb:latest
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 8086
+        volumeMounts:
+          - name: influxdb-storage
+            mountPath: /var/lib/influxdb

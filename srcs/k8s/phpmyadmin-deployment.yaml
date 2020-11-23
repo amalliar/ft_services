@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: phpmyadmin-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: phpmyadmin-app
+  template:
+    metadata:
+      name: phpmyadmin-pod
+      labels:
+        app: phpmyadmin-app
+    spec:
+      containers:
+      - name: phpmyadmin-container
+        image: amalliar/phpmyadmin:latest
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 5000

@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wordpress-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: wordpress-app
+  template:
+    metadata:
+      name: wordpress-pod
+      labels:
+        app: wordpress-app
+    spec:
+      containers:
+      - name: wordpress-container
+        image: amalliar/wordpress:latest
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 5050

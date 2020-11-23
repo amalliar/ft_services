@@ -6,7 +6,7 @@
 #    By: amalliar <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/02 00:17:37 by amalliar          #+#    #+#              #
-#    Updated: 2020/11/18 06:48:38 by amalliar         ###   ########.fr        #
+#    Updated: 2020/11/19 08:01:12 by amalliar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,11 +15,16 @@ LABEL maintainer="amalliar@student.21-school.ru"
 EXPOSE 22 80 443
 ENTRYPOINT ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
 
-RUN apk add --no-cache nginx openssl openssh supervisor
-RUN adduser -D -g 'www' www
-RUN mkdir /www && mkdir /var/run/nginx
-RUN chown -R www:www /var/lib/nginx
-RUN chown -R www:www /www
+RUN apk add --no-cache \
+    nginx \
+    openssh \
+    openssl \
+    supervisor \
+    telegraf --repository=http://dl-cdn.alpinelinux.org/alpine/edge/testing
+
+RUN adduser -D -g 'www' www && \
+    mkdir /www /var/run/nginx && \
+    chown -R www:www /www /var/lib/nginx
 
 # Generate ssl key and certificate.
 WORKDIR /etc/nginx/ssl
@@ -33,6 +38,5 @@ WORKDIR /etc/ssh
 RUN ssh-keygen -A && \
     sed -i s/#PermitRootLogin.*/PermitRootLogin\ yes/ /etc/ssh/sshd_config && \
     echo "root:toor" | chpasswd
-COPY www /www
-COPY nginx.conf /etc/nginx/nginx.conf
-COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+
+COPY rootfs /

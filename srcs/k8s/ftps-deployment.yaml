@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ftps-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ftps-app
+  template:
+    metadata:
+      name: ftps-pod
+      labels:
+        app: ftps-app
+    spec:
+      volumes:
+        - name: ftps-storage
+          persistentVolumeClaim:
+            claimName: file-server-persistent-volume-claim
+      containers:
+      - name: ftps-container
+        image: amalliar/ftps:latest
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 21
+        - containerPort: 20
+        - containerPort: 40000
+        volumeMounts:
+          - name: ftps-storage
+            mountPath: /var/ftp/data
