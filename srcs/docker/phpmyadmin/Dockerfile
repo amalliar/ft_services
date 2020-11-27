@@ -6,7 +6,7 @@
 #    By: amalliar <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/02 00:17:37 by amalliar          #+#    #+#              #
-#    Updated: 2020/11/24 18:14:03 by amalliar         ###   ########.fr        #
+#    Updated: 2020/11/27 21:04:45 by amalliar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,7 +42,6 @@ RUN apk add --no-cache \
     php7-xml \
     php7-xmlrpc \
     supervisor \
-    telegraf --repository=http://dl-cdn.alpinelinux.org/alpine/edge/testing \
     axel
 
 RUN adduser -D -g 'www' www && \

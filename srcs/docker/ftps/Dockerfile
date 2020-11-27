@@ -6,23 +6,21 @@
 #    By: amalliar <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/02 00:17:37 by amalliar          #+#    #+#              #
-#    Updated: 2020/11/23 12:51:36 by amalliar         ###   ########.fr        #
+#    Updated: 2020/11/27 16:07:56 by amalliar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 FROM alpine:3.12
 LABEL maintainer="amalliar@student.21-school.ru"
 EXPOSE 20 21 40000
-ENTRYPOINT ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
+ENTRYPOINT ["/usr/sbin/vsftpd", "/etc/vsftpd/vsftpd.conf"]
 
 RUN apk add --no-cache \
     openssl \
-    supervisor \
-    telegraf --repository=http://dl-cdn.alpinelinux.org/alpine/edge/testing \
     vsftpd
 
 RUN echo "root:toor" | chpasswd && \
-    mkdir /var/ftp
+    mkdir -p /var/ftp
 
 # Generate ssl key and certificate.
 WORKDIR /etc/vsftpd/ssl

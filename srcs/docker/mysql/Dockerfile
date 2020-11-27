@@ -6,7 +6,7 @@
 #    By: amalliar <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/02 00:17:37 by amalliar          #+#    #+#              #
-#    Updated: 2020/11/24 13:27:42 by amalliar         ###   ########.fr        #
+#    Updated: 2020/11/27 16:13:50 by amalliar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,8 +18,6 @@ ENTRYPOINT ["docker-entrypoint.sh"]
 RUN adduser -D -g 'mysql' mysql
 RUN apk add --no-cache \
     mysql \
-    mysql-client \
-    supervisor \
-    telegraf --repository=http://dl-cdn.alpinelinux.org/alpine/edge/testing
+    mysql-client
 
 COPY rootfs /

@@ -35,14 +35,15 @@ $cfg['Servers'][$i]['host'] = "mysql-service";
 $cfg['Servers'][$i]['port'] = "3306";
 $cfg['Servers'][$i]['user'] = "mysql";
 $cfg['Servers'][$i]['password'] = "mysql";
+$cfg['Servers'][$i]['extension'] = 'mysqli';
 
 /**
  * phpMyAdmin configuration storage settings.
  */
 
 /* User used to manipulate with storage */
-// $cfg['Servers'][$i]['controlhost'] = '';
-// $cfg['Servers'][$i]['controlport'] = '';
+$cfg['Servers'][$i]['controlhost'] = 'mysql-service';
+$cfg['Servers'][$i]['controlport'] = '3306';
 $cfg['Servers'][$i]['controluser'] = 'mysql';
 $cfg['Servers'][$i]['controlpass'] = 'mysql';
 

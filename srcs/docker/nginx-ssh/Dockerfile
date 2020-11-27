@@ -6,7 +6,7 @@
 #    By: amalliar <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/02 00:17:37 by amalliar          #+#    #+#              #
-#    Updated: 2020/11/19 08:01:12 by amalliar         ###   ########.fr        #
+#    Updated: 2020/11/27 16:16:55 by amalliar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,8 +19,7 @@ RUN apk add --no-cache \
     nginx \
     openssh \
     openssl \
-    supervisor \
-    telegraf --repository=http://dl-cdn.alpinelinux.org/alpine/edge/testing
+    supervisor
 
 RUN adduser -D -g 'www' www && \
     mkdir /www /var/run/nginx && \
