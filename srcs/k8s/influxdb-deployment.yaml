@@ -26,3 +26,6 @@ spec:
         volumeMounts:
           - name: influxdb-storage
             mountPath: /var/lib/influxdb
+        envFrom:
+        - secretRef:
+            name: influxdb-secret

@@ -21,6 +21,19 @@ docker build -t amalliar/phpmyadmin:latest ./srcs/docker/phpmyadmin
 docker build -t amalliar/wordpress:latest ./srcs/docker/wordpress
 docker build -t amalliar/ftps:latest ./srcs/docker/ftps
 docker build -t amalliar/influxdb:latest ./srcs/docker/influxdb
+docker build -t amalliar/telegraf:latest ./srcs/docker/telegraf
 docker build -t amalliar/grafana:latest ./srcs/docker/grafana
+
+echo -e "$LGREEN==>$NOC Define secrets..."
+kubectl create secret generic influxdb-secret \
+  --from-literal=INFLUXDB_DB=telegraf \
+  --from-literal=INFLUXDB_USER=telegraf \
+  --from-literal=INFLUXDB_USER_PASSWORD=telegraf \
+  --from-literal=INFLUXDB_HOST=influxdb-service \
+  --from-literal=INFLUXDB_HTTP_AUTH_ENABLED=false
+kubectl create secret generic grafana-secret \
+  --from-literal=GF_SECURITY_ADMIN_USER=root \
+  --from-literal=GF_SECURITY_ADMIN_PASSWORD=toor
+
 echo -e "$LGREEN==>$NOC Applying manifests..."
 kubectl apply -f ./srcs/k8s

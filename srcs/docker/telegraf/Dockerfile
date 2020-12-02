@@ -6,36 +6,16 @@
 #    By: amalliar <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/02 00:17:37 by amalliar          #+#    #+#              #
-#    Updated: 2020/11/29 17:59:53 by amalliar         ###   ########.fr        #
+#    Updated: 2020/12/05 20:17:54 by amalliar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 FROM alpine:3.12
 LABEL maintainer="amalliar@student.21-school.ru"
-EXPOSE 22 80 443
-ENTRYPOINT ["supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
+ENTRYPOINT ["telegraf"]
 
 RUN apk add --no-cache \
-    nginx \
-    openssh \
-    openssl \
-    supervisor
+    telegraf --repository=http://dl-cdn.alpinelinux.org/alpine/edge/testing
 
-RUN adduser -D -g 'www' www && \
-    mkdir /www /var/run/nginx && \
-    chown -R www:www /www /var/lib/nginx
-
-# Generate ssl key and certificate.
-WORKDIR /etc/nginx/ssl
-RUN openssl req -new -x509 -nodes -newkey rsa:4096 -keyout server.key -out server.crt -days 1095 \
-    -subj "/C=RU/L=Moscow/O=Self-signed/CN=localhost" && \
-    chmod 400 server.key && \
-    chmod 444 server.crt
-
-# Generate ssh keys.
-WORKDIR /etc/ssh
-RUN ssh-keygen -A && \
-    sed -i s/#PermitRootLogin.*/PermitRootLogin\ yes/ /etc/ssh/sshd_config && \
-    echo "root:toor" | chpasswd
-
-COPY rootfs /
+RUN addgroup docker && \
+    addgroup telegraf docker

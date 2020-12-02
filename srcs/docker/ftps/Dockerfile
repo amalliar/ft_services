@@ -6,14 +6,14 @@
 #    By: amalliar <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/02 00:17:37 by amalliar          #+#    #+#              #
-#    Updated: 2020/11/27 16:07:56 by amalliar         ###   ########.fr        #
+#    Updated: 2020/11/29 17:59:17 by amalliar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 FROM alpine:3.12
 LABEL maintainer="amalliar@student.21-school.ru"
 EXPOSE 20 21 40000
-ENTRYPOINT ["/usr/sbin/vsftpd", "/etc/vsftpd/vsftpd.conf"]
+ENTRYPOINT ["vsftpd", "/etc/vsftpd/vsftpd.conf"]
 
 RUN apk add --no-cache \
     openssl \

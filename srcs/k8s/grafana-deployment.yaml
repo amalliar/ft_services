@@ -17,3 +17,9 @@ spec:
       - name: grafana-container
         image: amalliar/grafana:latest
         imagePullPolicy: Never
+        envFrom:
+          - secretRef:
+              name: grafana-secret
+      securityContext:
+        fsGroup: 472
+
