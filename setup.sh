@@ -37,4 +37,5 @@ kubectl create secret generic grafana-secret \
 
 echo -e "$LGREEN==>$NOC Applying manifests..."
 kubectl apply -f ./srcs/k8s
-minikube dashboard --url=false
+echo -e "$LGREEN==>$NOC Opening web dashboard..."
+minikube dashboard
