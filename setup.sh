@@ -8,14 +8,14 @@ if [[ $? != 0 ]]
 then
     echo -e "$LGREEN==>$NOC Starting minikube..."
     minikube start --addons=default-storageclass --addons=metallb \
-        --addons=storage-provisioner
+        --addons=storage-provisioner --addons=dashboard --addons=metrics-server
 fi
 
 # We want to use the docker server inside of a
 # minikube VM / docker container.
 eval $(minikube -p minikube docker-env)
 echo -e "$LGREEN==>$NOC Building Docker images..."
-docker build -t amalliar/nginx-ssh:latest ./srcs/docker/nginx-ssh
+docker build -t amalliar/nginx:latest ./srcs/docker/nginx
 docker build -t amalliar/mysql:latest ./srcs/docker/mysql
 docker build -t amalliar/phpmyadmin:latest ./srcs/docker/phpmyadmin
 docker build -t amalliar/wordpress:latest ./srcs/docker/wordpress
@@ -37,3 +37,4 @@ kubectl create secret generic grafana-secret \
 
 echo -e "$LGREEN==>$NOC Applying manifests..."
 kubectl apply -f ./srcs/k8s
+minikube dashboard --url=false

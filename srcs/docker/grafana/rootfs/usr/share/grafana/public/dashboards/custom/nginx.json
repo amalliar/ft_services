@@ -124,7 +124,7 @@
             {
               "key": "io.kubernetes.container.name",
               "operator": "=",
-              "value": "nginx-ssh-container"
+              "value": "nginx"
             }
           ]
         },
@@ -167,7 +167,7 @@
             {
               "key": "io.kubernetes.container.name",
               "operator": "=",
-              "value": "nginx-ssh-container"
+              "value": "nginx"
             }
           ]
         }
@@ -304,7 +304,7 @@
             {
               "key": "io.kubernetes.container.name",
               "operator": "=",
-              "value": "nginx-ssh-container"
+              "value": "nginx"
             }
           ]
         }
@@ -443,7 +443,7 @@
             {
               "key": "io.kubernetes.container.name",
               "operator": "=",
-              "value": "nginx-ssh-container"
+              "value": "nginx"
             }
           ]
         },
@@ -486,7 +486,7 @@
             {
               "key": "io.kubernetes.container.name",
               "operator": "=",
-              "value": "nginx-ssh-container"
+              "value": "nginx"
             }
           ]
         },
@@ -529,7 +529,7 @@
             {
               "key": "io.kubernetes.container.name",
               "operator": "=",
-              "value": "nginx-ssh-container"
+              "value": "nginx"
             }
           ]
         }
@@ -589,7 +589,7 @@
   },
   "timepicker": {},
   "timezone": "",
-  "title": "nginx-ssh",
+  "title": "nginx",
   "uid": "tjP2a9AMe",
   "version": 2
 }

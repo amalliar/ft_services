@@ -124,7 +124,7 @@
             {
               "key": "io.kubernetes.container.name",
               "operator": "=",
-              "value": "mysql-container"
+              "value": "mysql"
             }
           ]
         },
@@ -167,7 +167,7 @@
             {
               "key": "io.kubernetes.container.name",
               "operator": "=",
-              "value": "mysql-container"
+              "value": "mysql"
             }
           ]
         }
@@ -304,7 +304,7 @@
             {
               "key": "io.kubernetes.container.name",
               "operator": "=",
-              "value": "mysql-container"
+              "value": "mysql"
             }
           ]
         }
@@ -443,7 +443,7 @@
             {
               "key": "io.kubernetes.container.name",
               "operator": "=",
-              "value": "mysql-container"
+              "value": "mysql"
             }
           ]
         },
@@ -486,7 +486,7 @@
             {
               "key": "io.kubernetes.container.name",
               "operator": "=",
-              "value": "mysql-container"
+              "value": "mysql"
             }
           ]
         },
@@ -529,7 +529,7 @@
             {
               "key": "io.kubernetes.container.name",
               "operator": "=",
-              "value": "mysql-container"
+              "value": "mysql"
             }
           ]
         }

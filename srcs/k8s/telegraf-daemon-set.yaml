@@ -13,7 +13,7 @@ spec:
         app: telegraf-app
     spec:
       containers:
-      - name: telegraf-container
+      - name: telegraf
         image: amalliar/telegraf:latest
         imagePullPolicy: Never
         env:

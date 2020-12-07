@@ -18,7 +18,7 @@ spec:
           persistentVolumeClaim:
             claimName: database-persistent-volume-claim
       containers:
-      - name: mysql-container
+      - name: mysql
         image: amalliar/mysql:latest
         imagePullPolicy: Never
         ports:

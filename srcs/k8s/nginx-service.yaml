@@ -1,14 +1,14 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: nginx-ssh-service
+  name: nginx-service
   annotations:
     metallb.universe.tf/allow-shared-ip: ft_services
   labels:
-    app: nginx-ssh-app
+    app: nginx-app
 spec:
   selector:
-    app: nginx-ssh-app
+    app: nginx-app
   type: LoadBalancer
   loadBalancerIP: 192.168.49.3
   ports:
