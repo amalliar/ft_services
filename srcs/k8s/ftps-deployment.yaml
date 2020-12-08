@@ -22,9 +22,19 @@ spec:
         image: amalliar/ftps:latest
         imagePullPolicy: Never
         ports:
-        - containerPort: 21
         - containerPort: 20
+        - containerPort: 21
         - containerPort: 40000
+        - containerPort: 40001
+        - containerPort: 40002
+        - containerPort: 40003
+        - containerPort: 40004
+        - containerPort: 40005
+        - containerPort: 40006
+        - containerPort: 40007
+        - containerPort: 40008
+        - containerPort: 40009
+        - containerPort: 40010
         volumeMounts:
           - name: ftps-storage
             mountPath: /var/ftp/data

@@ -6,18 +6,20 @@
 #    By: amalliar <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/02 00:17:37 by amalliar          #+#    #+#              #
-#    Updated: 2020/11/29 17:59:17 by amalliar         ###   ########.fr        #
+#    Updated: 2020/12/09 01:04:18 by amalliar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-FROM alpine:3.12
+FROM alpine:latest
 LABEL maintainer="amalliar@student.21-school.ru"
-EXPOSE 20 21 40000
-ENTRYPOINT ["vsftpd", "/etc/vsftpd/vsftpd.conf"]
+EXPOSE 20 21 40000-40010
+ENTRYPOINT ["supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
+#ENTRYPOINT ["vsftpd", "/etc/vsftpd/vsftpd.conf"]
 
 RUN apk add --no-cache \
     openssl \
-    vsftpd
+    vsftpd \
+    supervisor
 
 RUN echo "root:toor" | chpasswd && \
     mkdir -p /var/ftp
