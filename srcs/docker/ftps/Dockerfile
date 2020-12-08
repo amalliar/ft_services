@@ -6,23 +6,21 @@
 #    By: amalliar <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/02 00:17:37 by amalliar          #+#    #+#              #
-#    Updated: 2020/12/09 01:04:18 by amalliar         ###   ########.fr        #
+#    Updated: 2020/12/09 02:21:43 by amalliar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-FROM alpine:latest
+FROM alpine:3.12
 LABEL maintainer="amalliar@student.21-school.ru"
 EXPOSE 20 21 40000-40010
-ENTRYPOINT ["supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
-#ENTRYPOINT ["vsftpd", "/etc/vsftpd/vsftpd.conf"]
+ENTRYPOINT ["docker-entrypoint.sh"]
 
 RUN apk add --no-cache \
     openssl \
-    vsftpd \
-    supervisor
+    vsftpd
 
 RUN echo "root:toor" | chpasswd && \
-    mkdir -p /var/ftp
+    mkdir /var/ftp
 
 # Generate ssl key and certificate.
 WORKDIR /etc/vsftpd/ssl
